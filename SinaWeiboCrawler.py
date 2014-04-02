@@ -1,14 +1,14 @@
-#coding=utf8
+#!/usr/bin/env python
+#coding=utf-8
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 import hashlib
 import random
-from bs4 import BeautifulSoup
+from BeautifulSoup import BeautifulSoup
 import urllib
 import json
 from WeiboCrawler import WeiboCrawler
-
 
 class SinaWeiboCrawler(WeiboCrawler): 
     
@@ -27,9 +27,11 @@ class SinaWeiboCrawler(WeiboCrawler):
             if 'ok' in json_infos and json_infos['ok']:
                 return_val = {'total_count': json_infos['total_number'], 'total_pages': json_infos['maxPage'], 'msgs': []}
                 msgs = json_infos['mblogList']
+                for msg in msgs:
+                    print msg['text'].encode('utf-8')
                 return_val['msgs'] = msgs
                 return return_val
 
 if __name__ == '__main__':
     sw = SinaWeiboCrawler()
-    print sw.getWeibos(u'比特币', 2, 5)
+    res = sw.getWeibos(u'陌陌', 2, 2)
